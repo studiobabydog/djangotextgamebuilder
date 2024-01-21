@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+    Choose a Story to Play
+{% endblock %}
+
+{% block content %}
+<h1>Choose a story to play...</h1>
+{% if stories %}
+    <ul>
+        {% for story in stories %}
+            <li><a href="{{ story.get_absolute_url }}">{{ story.story_name|title }}</a>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h4>You have not created any stories yet!</h4>
+    <p>Create a story <a href="{% url 'create-story' %}">here.</p>
+{% endif %}
+{% endblock %}

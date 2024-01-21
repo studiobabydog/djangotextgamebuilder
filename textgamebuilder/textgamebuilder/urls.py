@@ -16,9 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from playstory.views import home_view
+from playstory.views import *
+from storyblock.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+    
+    path('all-stories', all_stories_view, name='all-stories'),
+    path('view-story/<slug:storyslug>', story_view),
+    path('do-choice', do_choice, name='do-choice'),
+    
+    path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
+    path('create-story', create_story_view, name='create-story'),
+    path('create-storyblock', create_storyblock_view, name='create-storyblock'),
+    path('edit-storyblock', edit_storyblock_view, name='edit-storyblock')
 ]

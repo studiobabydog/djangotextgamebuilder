@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}
-    {{story_choice.adv_id}}
-{%  endblock %}
-
-{% block script %}
+    {{story_choice.story_id}}
 {% endblock %}
+
 {% block content %}
     <h1>{{ story_choice.story_id }} Story</h1>
 {% if error is not None %}

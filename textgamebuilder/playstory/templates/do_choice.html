@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}
     {{story_choice.story_id}}
-{%  endblock %}
-
-{% block script %}
 {% endblock %}
+
 {% block content %}
-    <h1>{{ story_choice.story_id }} Adventure</h1>
+    <h1>{{ story_choice.story_id }} Story</h1>
 {% if error is not None %}
 {{ error }}
 {% else %}
@@ -16,7 +14,7 @@
     <p>{{ story_choice.choice_text }}</p>
     <hr />
     <br />
-    <form method="POST" action="/do-adventure">
+    <form method="POST" action="/do-choice">
         {% csrf_token %}
         <input type="hidden" readonly name="story_id" value="{{ story_choice.story_id }}">
         <input type="hidden" readonly name="choice_id" value="{{ story_choice.choice_id }}">

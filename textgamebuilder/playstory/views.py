@@ -6,6 +6,13 @@ def home_view(request, *args, **kwargs):
     context = {}
     return render(request, "home.html", context)
 
+def all_stories_view(request, *args, **kwargs):
+    stories = Story.objects.filter(story_isactive=True)
+    context = {
+        'stories': stories,
+    }
+    return render(request, "choose_story.html", context)
+
 def story_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
     story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=1).first()
@@ -25,15 +32,14 @@ def validate_story_choice(request, story_choice, *args, **kwargs):
         story_do = StoryChoice.objects.filter(story_id = story_choice.story_id, choice_id=request.POST.get('continue_choice')).first().choice_id
     return story_do
 
-def do_story(request, *args, **kwargs):
+def do_choice(request, *args, **kwargs):
     if request.method == "POST":
         # Log story
         story = story.objects.filter(story_name=request.POST.get('story_id')).first()
         story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=request.POST.get('choice_id')).first()
         return_story = validate_story_choice(request, story_choice)
         continue_story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=return_story).first()
-        final_story_choice = StoryChoice.objects.all().order_by('-choice_id').first()
-        chkpt_message = ''     
+        final_story_choice = StoryChoice.objects.all().order_by('-choice_id').first()   
         context = {
             'final_story_choice': final_story_choice,
             'story_choice': continue_story_choice
