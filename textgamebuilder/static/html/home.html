@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{%  endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+    {% else %}
+    <h1>Hello! You are not logged in!</h1>
+    {% endif %}
+{% endblock %}
