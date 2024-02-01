@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Create A Story
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'all-stories' %}">Back to All Stories</a>
+<hr />
+<form method="POST" action="/create-story">
+    {% csrf_token %}
+    <div>
+        {{ form }}
+    </div>
+    <input type="submit" name="create-story" value="Create Story!">
+</form>
+{% endblock %}

@@ -5,27 +5,31 @@
 
 {% block content %}
 {% if story is not None %}
-    <h1>{{ story_block.story_id }} Story</h1>
-{% if error is not None %}
-{{ error }}
-{% else %}
-{% endif %}
-<img src="{{ story_block.block_image }}" alt="{{ story_block.block_image_alt }}">
-<br />
-<p>{{story_block.block_text}}</p>
-<hr />
-<br />
-<form method="POST" action="/do-block">
-    {% csrf_token %}
-    <input type="hidden" readonly name="story_id" value="{{ story_block.story_id }}">
-    <input type="hidden" readonly name="block_id" value="{{ story_block.block_id }}">
-    {% if story_block.prev_block_txt != "block" %}
-    <button type="submit" name="block" value="back">{{ story_block.prev_block_txt }}</button>
+    <h1>{{ story.story_name|title }}</h1>
+
+    {% if story_empty %}
+        <p>This story is not ready to play (missing story blocks). Please <a href="{{ story.get_edit_story_url }}">edit the story.</a></p>
+    {% else %}
+        <img src="{{ story_block.block_image }}" alt="{{ story_block.block_image_alt }}">
+        <br />
+        <p>{{story_block.block_text}}</p>
+        <hr />
+        <br />
+        <form method="POST" action="/do-block">
+            {% csrf_token %}
+            <input type="hidden" readonly name="story_id" value="{{ story_block.story_id }}">
+            <input type="hidden" readonly name="block_id" value="{{ story_block.block_id }}">
+            {% if story_block.prev_block_txt != "block" %}
+            <button type="submit" name="block" value="back">{{ story_block.prev_block_txt }}</button>
+            {% endif %}
+            <button type="submit" name="block" value="next1">{{ story_block.next_block1_txt }}</button>
+            <button type="submit" name="block" value="next2">{{ story_block.next_block2_txt }}</button>
+        </form>
     {% endif %}
-    <button type="submit" name="block" value="next1">{{ story_block.next_block1_txt }}</button>
-    <button type="submit" name="block" value="next2">{{ story_block.next_block2_txt }}</button>
-</form>
+
 {% else %}
-<p>You have not chosen a story to play.</p>
+    
+    <p>You have not chosen a story to play.</p>
+
 {% endif %}
 {% endblock %}

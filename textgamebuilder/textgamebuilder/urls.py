@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from playstory.views import *
-from storyblock.views import *
+from editstory.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
