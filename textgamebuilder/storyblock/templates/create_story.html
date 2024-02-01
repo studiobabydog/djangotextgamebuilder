@@ -4,5 +4,11 @@
 {% endblock %}
 
 {% block content %}
-    <p>this is my settings font size!</p>
+<form method="POST" action="/create-story/">
+    {% csrf_token %}
+    <div>
+        {{ form }}
+    </div>
+    <input type="submit" name="create-story" value="Create Story!">
+</form>
 {% endblock %}

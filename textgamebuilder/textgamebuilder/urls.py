@@ -25,7 +25,7 @@ urlpatterns = [
     
     path('all-stories', all_stories_view, name='all-stories'),
     path('view-story/<slug:storyslug>', story_view),
-    path('do-choice', do_choice, name='do-choice'),
+    path('do-block', do_block, name='do-choice'),
     
     path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
     path('create-story', create_story_view, name='create-story'),

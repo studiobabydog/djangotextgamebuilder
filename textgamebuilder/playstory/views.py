@@ -1,50 +1,50 @@
 from django.shortcuts import render
-from storyblock.models import Story, StoryChoice
+from storyblock.models import Story, StoryBlock
 
 # Create your views here.
 def home_view(request, *args, **kwargs):
     context = {}
-    return render(request, "home.html", context)
+    return render(request, 'home.html', context)
 
 def all_stories_view(request, *args, **kwargs):
     stories = Story.objects.filter(story_isactive=True)
     context = {
         'stories': stories,
     }
-    return render(request, "choose_story.html", context)
+    return render(request, 'choose_story.html', context)
 
 def story_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
-    story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=1).first()
+    story_block = StoryBlock.objects.filter(story_id=story.story_id, block_id=1).first()
     context = {
-        'story_choice': story_choice,
+        'story_block': story_block,
         }
-    return render(request, "play_story.html", context)
+    return render(request, 'play_story.html', context)
 
-def validate_story_choice(request, story_choice, *args, **kwargs):
-    if request.POST.get('choice') == 'next1':
-        story_do = story_choice.choice_id + story_choice.next_choice1_add
-    elif request.POST.get('choice') == 'next2':
-        story_do = story_choice.choice_id + story_choice.next_choice2_add
-    elif request.POST.get('choice') == 'back':
-        story_do = story_choice.choice_id - story_choice.prev_choice_sub
-    elif request.POST.get('choice') == 'continue':
-        story_do = StoryChoice.objects.filter(story_id = story_choice.story_id, choice_id=request.POST.get('continue_choice')).first().choice_id
+def validate_story_block(request, story_block, *args, **kwargs):
+    if request.POST.get('block') == 'next1':
+        story_do = story_block.block_id + story_block.next_block1_add
+    elif request.POST.get('block') == 'next2':
+        story_do = story_block.block_id + story_block.next_block2_add
+    elif request.POST.get('block') == 'back':
+        story_do = story_block.block_id - story_block.prev_block_sub
+    elif request.POST.get('block') == 'continue':
+        story_do = StoryBlock.objects.filter(story_id = story_block.story_id, block_id=request.POST.get('continue_block')).first().block_id
     return story_do
 
-def do_choice(request, *args, **kwargs):
-    if request.method == "POST":
+def do_block(request, *args, **kwargs):
+    if request.method == 'POST':
         # Log story
         story = story.objects.filter(story_name=request.POST.get('story_id')).first()
-        story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=request.POST.get('choice_id')).first()
-        return_story = validate_story_choice(request, story_choice)
-        continue_story_choice = StoryChoice.objects.filter(story_id=story.story_id, choice_id=return_story).first()
-        final_story_choice = StoryChoice.objects.all().order_by('-choice_id').first()   
+        story_block = StoryBlock.objects.filter(story_id=story.story_id, block_id=request.POST.get('block_id')).first()
+        return_story = validate_story_block(request, story_block)
+        continue_story_block = StoryBlock.objects.filter(story_id=story.story_id, block_id=return_story).first()
+        final_story_block = StoryBlock.objects.all().order_by('-block_id').first()   
         context = {
-            'final_story_choice': final_story_choice,
-            'story_choice': continue_story_choice
+            'final_story_block': final_story_block,
+            'story_block': continue_story_block
             }
 
-        return render(request, "do_choice.html", context)
-    elif request.method == "GET":
-        return render(request, "home.html")
+        return render(request, 'do_block.html', context)
+    elif request.method == 'GET':
+        return render(request, 'home.html')
