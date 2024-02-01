@@ -4,7 +4,7 @@ from django.urls import reverse
 # Create your models here.
 class Story(models.Model):
 	story_id = models.BigAutoField(auto_created=True, primary_key=True, verbose_name='story id')
-	story_name = models.CharField(max_length=35, verbose_name='story name', default='default story name')
+	story_name = models.CharField(max_length=35, verbose_name='story name', default='default story name', unique=True)
 	story_isactive = models.BooleanField(default=True, verbose_name='story is active')
 	story_slug = models.SlugField(null=False, default='default-story-slug', verbose_name='story slug (URL-friendly nickname)', unique=True)
 
@@ -13,6 +13,15 @@ class Story(models.Model):
 	
 	def get_absolute_url(self):
 		return reverse('play-story', kwargs={'storyslug': self.story_slug})
+	
+	def get_play_url(self):
+		return reverse('play-story', kwargs={'storyslug': self.story_slug})
+	
+	def get_edit_story_url(self):
+		return reverse('edit-story', kwargs={'storyslug': self.story_slug})
+	
+	def get_edit_storyblocks_url(self):
+		return reverse('edit-storyblocks', kwargs={'storyslug': self.story_slug})
 	
 class StoryBlock(models.Model):
 	story_id = models.ForeignKey(Story, on_delete=models.CASCADE)

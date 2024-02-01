@@ -6,14 +6,7 @@ def home_view(request, *args, **kwargs):
     context = {}
     return render(request, 'home.html', context)
 
-def all_stories_view(request, *args, **kwargs):
-    stories = Story.objects.filter(story_isactive=True)
-    context = {
-        'stories': stories,
-    }
-    return render(request, 'choose_story.html', context)
-
-def story_view(request, storyslug, *args, **kwargs):
+def play_story_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
     story_block = StoryBlock.objects.filter(story_id=story.story_id, block_id=1).first()
     context = {

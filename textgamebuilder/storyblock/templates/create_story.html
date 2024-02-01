@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="/create-story/">
+<a href="{% url 'all-stories' %}">Back to All Stories</a>
+<hr />
+<form method="POST" action="/create-story">
     {% csrf_token %}
     <div>
         {{ form }}

@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}
-    Choose a Story to Play
+    All Stories
 {% endblock %}
 
 {% block content %}
-<h1>Choose a story to play...</h1>
+<h1>Choose a story...</h1>
 {% if stories %}
     <ul>
         {% for story in stories %}
-            <li><a href="{{ story.get_absolute_url }}">{{ story.story_name|title }}</a>
+            <li>
+                {{ story.story_name|title }} - <a href="{{ story.get_play_url }}">Play</a> - <a href="{{ story.get_edit_story_url }}">Edit</a>
+            </li>
         {% endfor %}
     </ul>
+    <hr />
+    <p>Create a new story or edit story blocks <a href="{% url 'all-storyblocks' %}">here.</p>
 {% else %}
     <h4>You have not created any stories yet!</h4>
     <p>Create a story <a href="{% url 'create-story' %}">here.</p>

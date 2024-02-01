@@ -24,11 +24,13 @@ urlpatterns = [
     path('', home_view, name='home'),
     
     path('all-stories', all_stories_view, name='all-stories'),
-    path('view-story/<slug:storyslug>', story_view),
+    path('create-story', create_story_view, name='create-story'),
+    path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story'),
+
+    path('play-story/<slug:storyslug>', play_story_view, name='play-story'),
     path('do-block', do_block, name='do-choice'),
     
     path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
-    path('create-story', create_story_view, name='create-story'),
     path('create-storyblock', create_storyblock_view, name='create-storyblock'),
     path('edit-storyblock', edit_storyblock_view, name='edit-storyblock')
 ]
