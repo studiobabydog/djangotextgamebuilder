@@ -6,7 +6,7 @@
 {% block content %}
 {% if story is not None %}
     <h1>Creating a storyblock for {{ story.story_name|title }}...</h1>
-    <a href="{{ story.get_edit_story_url }}">Back to Edit Story</a>
+    <a href="{{ story.get_edit_story_url }}">Back to Edit Current Story ({{story.story_name|title}})</a>
     <hr />
     <form method="POST" action="">
         {% csrf_token %}

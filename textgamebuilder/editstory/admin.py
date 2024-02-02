@@ -5,5 +5,4 @@ from editstory.models import Story, StoryBlock
 class StoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"story_slug": ("story_name",)}
 admin.site.register(Story, StoryAdmin)
-
 admin.site.register(StoryBlock)

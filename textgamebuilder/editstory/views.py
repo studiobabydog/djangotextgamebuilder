@@ -33,10 +33,10 @@ def create_story_view(request, *args, **kwargs):
 def edit_story_view(request, storyslug, *args, **kwargs):
     # Find the story we're going to edit, and the blocks that belong to it.
     story = Story.objects.get(story_slug=storyslug)
-    story_blocks = StoryBlock.objects.filter(story_id=story.story_id)
+    storyblocks = StoryBlock.objects.filter(story_id=story.story_id)
     context = {
         'story': story
-        ,'story_blocks': story_blocks
+        ,'storyblocks': storyblocks
         }
     return render(request, 'edit_story.html', context)
 
@@ -57,7 +57,13 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
             storyblock = create_storyblock_form.save(commit=False)
             # Do other validations if necessary
             storyblock.save()
-            return reverse('edit-story', kwargs={'storyslug':story.story_slug})
+            return redirect('edit-story', storyslug)
+        else:
+            context = {
+            'story': story
+            ,'form': create_storyblock_form
+            }
+        return render(request, 'create_storyblock.html', context)
     # Else if we are just looking at the page, set up a blank form...
     else:
         # If there are already storyblocks in this story, show me a form with more fields!
@@ -66,11 +72,11 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
         # Else if there are no storyblocks and this is the first one, we need fewer fields.
         elif not storyblocks:
             create_storyblock_form = CreateFirstStoryBlockForm(initial={'story_id':story.story_id})
-    context = {
-        'story': story
-        ,'form': create_storyblock_form
-        }
-    return render(request, 'create_storyblock.html', context)
+        context = {
+            'story': story
+            ,'form': create_storyblock_form
+            }
+        return render(request, 'create_storyblock.html', context)
 
 def edit_storyblock_view(request, blockslug, *args, **kwargs):
     # Find the storyblock that we want to edit.

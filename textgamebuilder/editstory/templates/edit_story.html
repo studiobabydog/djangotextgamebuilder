@@ -7,6 +7,8 @@
 {% if story is not None %}
     <h1>Editing {{ story.story_name|title }}...</h1>
     <a href="{% url 'all-stories' %}">Back to All Stories</a>
+    <br />
+    <a href="{{ story.get_create_storyblock_url }}">Create another story block for this story...</a>
     <hr />
     {% if storyblocks is None %}
         <p>There are no storyblocks in this story yet. Please <a href="{{ story.get_create_storyblock_url }}">create a storyblock</a> for this story.</p>
