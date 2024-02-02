@@ -6,8 +6,8 @@
 {% block content %}
 <h1>Choose a story...</h1>
 {% if stories %}
-    <hr />
     <p>Create a new story <a href="{% url 'create-story' %}">here.</p>
+    <hr />
     <ul>
         {% for story in stories %}
             <li>

@@ -11,8 +11,7 @@ class CreateStoryForm(forms.ModelForm):
 class CreateStoryBlockForm(forms.ModelForm):
     class Meta:
         model = StoryBlock
-        fields = ['story_id'
-                  ,'block_slug'
+        fields = ['block_slug'
                   ,'block_image' 
                   ,'block_image_alt' 
                   ,'block_text'

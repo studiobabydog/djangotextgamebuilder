@@ -30,8 +30,8 @@ def edit_story_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
     story_blocks = StoryBlock.objects.filter(story_id=story.story_id)
     context = {
-        'story': story,
-        'story_blocks': story_blocks,
+        'story': story
+        ,'story_blocks': story_blocks
         }
     return render(request, 'edit_story.html', context)
 
@@ -42,9 +42,19 @@ def all_storyblocks_view(request, *args, **kwargs):
 
 def create_storyblock_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
+    if request.method == 'POST':
+        create_storyblock_form = CreateStoryBlockForm(request.POST)
+        if create_storyblock_form.is_valid():
+            storyblock = create_storyblock_form.save(commit=False)
+            # Do other validations if necessary
+            storyblock.save()
+            return redirect('all-stories')
+    else:
+        create_storyblock_form = CreateStoryBlockForm(initial={'story_id':story.story_id})
     context = {
         'story': story
-    }
+        ,'form': create_storyblock_form
+        }
     return render(request, 'create_storyblock.html', context)
 
 def edit_storyblock_view(request, blockslug, *args, **kwargs):

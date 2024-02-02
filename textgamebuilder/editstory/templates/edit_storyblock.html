@@ -4,5 +4,10 @@
 {% endblock %}
 
 {% block content %}
-    <p>this is my settings font size!</p>
+{% if story is not None %}
+    <h1>Editing blocks for {{ story.story_name|title }}...</h1>
+    <a href="{% url 'all-stories' %}">Back to Edit Story</a>
+    <hr />
+{% else %}
+{% endif %}
 {% endblock %}
