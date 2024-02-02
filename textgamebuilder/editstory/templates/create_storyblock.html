@@ -8,7 +8,7 @@
     <h1>Creating a storyblock for {{ story.story_name|title }}...</h1>
     <a href="{{ story.get_edit_story_url }}">Back to Edit Story</a>
     <hr />
-    <form method="POST" action="/create-storyblock">
+    <form method="POST" action="">
         {% csrf_token %}
         <div>
             {{ form.as_p }}

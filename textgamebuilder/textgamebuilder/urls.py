@@ -28,7 +28,7 @@ urlpatterns = [
     path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story'),
 
     path('play-story/<slug:storyslug>', play_story_view, name='play-story'),
-    path('do-block', do_block, name='do-choice'),
+    #path('do-block', do_block, name='do-choice'),
     
     path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
     path('create-storyblock/<slug:storyslug>', create_storyblock_view, name='create-storyblock'),

@@ -15,6 +15,19 @@ class CreateStoryBlockForm(forms.ModelForm):
                   ,'block_image' 
                   ,'block_image_alt' 
                   ,'block_text'
+                  ,'prev_block_slug'
                   ,'prev_block_txt'
+                  ,'next_block1_slug'
+                  ,'next_block1_txt'
+                  ,'next_block2_slug'
+                  ,'next_block2_txt']
+
+class CreateFirstStoryBlockForm(forms.ModelForm):
+    class Meta:
+        model = StoryBlock
+        fields = ['block_slug'
+                  ,'block_image' 
+                  ,'block_image_alt' 
+                  ,'block_text'
                   ,'next_block1_txt'
                   ,'next_block2_txt']
