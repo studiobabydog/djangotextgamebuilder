@@ -9,12 +9,9 @@ def home_view(request, *args, **kwargs):
 def play_story_view(request, storyslug, *args, **kwargs):
     story = Story.objects.get(story_slug=storyslug)
     story_block = StoryBlock.objects.filter(story_id=story.story_id, block_id=1).first()
-    if story_block is None:
-        story_empty = True
     context = {
         'story': story,
         'story_block': story_block,
-        'story_empty': story_empty,
         }
     return render(request, 'play_story.html', context)
 

@@ -4,6 +4,18 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'all-stories' %}">Back to All Stories</a>
-<hr />
+{% if story is not None %}
+    <h1>Editing {{ story.story_name|title }}...</h1>
+    <a href="{% url 'all-stories' %}">Back to All Stories</a>
+    <hr />
+    {% if storyblocks is None %}
+        <p>There are no storyblocks in this story yet. Please <a href="{{ story.get_create_storyblock_url }}">create a storyblock</a> for this story.</p>
+    {% else %}
+        {% for storyblock in storyblocks %}
+            <p>{{ storyblock.block_slug }}</p>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <p>You have not chosen a story to edit. Please <a href="{% url 'all-stories' %}">select a story to edit.</a></p>
+{% endif %}
 {% endblock %}

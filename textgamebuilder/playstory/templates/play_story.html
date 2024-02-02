@@ -7,7 +7,7 @@
 {% if story is not None %}
     <h1>{{ story.story_name|title }}</h1>
 
-    {% if story_empty %}
+    {% if storyblock is None %}
         <p>This story is not ready to play (missing story blocks). Please <a href="{{ story.get_edit_story_url }}">edit the story.</a></p>
     {% else %}
         <img src="{{ story_block.block_image }}" alt="{{ story_block.block_image_alt }}">

@@ -11,9 +11,6 @@ class Story(models.Model):
 	def __str__(self):
 		return str(f'{self.story_name}')
 	
-	def get_absolute_url(self):
-		return reverse('play-story', kwargs={'storyslug': self.story_slug})
-	
 	def get_play_url(self):
 		return reverse('play-story', kwargs={'storyslug': self.story_slug})
 	
@@ -22,6 +19,9 @@ class Story(models.Model):
 	
 	def get_edit_storyblocks_url(self):
 		return reverse('edit-storyblocks', kwargs={'storyslug': self.story_slug})
+	
+	def get_create_storyblock_url(self):
+		return reverse('create-storyblock', kwargs={'storyslug': self.story_slug})
 	
 class StoryBlock(models.Model):
 	story_id = models.ForeignKey(Story, on_delete=models.CASCADE)

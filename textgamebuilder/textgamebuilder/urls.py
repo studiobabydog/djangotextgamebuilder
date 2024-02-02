@@ -31,6 +31,6 @@ urlpatterns = [
     path('do-block', do_block, name='do-choice'),
     
     path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
-    path('create-storyblock', create_storyblock_view, name='create-storyblock'),
-    path('edit-storyblock', edit_storyblock_view, name='edit-storyblock')
+    path('create-storyblock/<slug:storyslug>', create_storyblock_view, name='create-storyblock'),
+    path('edit-storyblock/<slug:blockslug>', edit_storyblock_view, name='edit-storyblock')
 ]

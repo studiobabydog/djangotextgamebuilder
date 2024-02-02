@@ -6,6 +6,8 @@
 {% block content %}
 <h1>Choose a story...</h1>
 {% if stories %}
+    <hr />
+    <p>Create a new story <a href="{% url 'create-story' %}">here.</p>
     <ul>
         {% for story in stories %}
             <li>
@@ -13,8 +15,6 @@
             </li>
         {% endfor %}
     </ul>
-    <hr />
-    <p>Create a new story <a href="{% url 'create-story' %}">here.</p>
 {% else %}
     <h4>You have not created any stories yet!</h4>
     <p>Create a story <a href="{% url 'create-story' %}">here.</p>

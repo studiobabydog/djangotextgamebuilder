@@ -26,8 +26,13 @@ def create_story_view(request, *args, **kwargs):
     context = {'form': create_story_form}
     return render(request, 'create_story.html', context)
 
-def edit_story_view(request, *args, **kwargs):
-    context = {}
+def edit_story_view(request, storyslug, *args, **kwargs):
+    story = Story.objects.get(story_slug=storyslug)
+    story_blocks = StoryBlock.objects.filter(story_id=story.story_id)
+    context = {
+        'story': story,
+        'story_blocks': story_blocks,
+        }
     return render(request, 'edit_story.html', context)
 
 def all_storyblocks_view(request, *args, **kwargs):
@@ -35,10 +40,16 @@ def all_storyblocks_view(request, *args, **kwargs):
     context = {'all_stories': all_stories}
     return render(request, 'all_storyblocks.html', context)
 
-def create_storyblock_view(request, *args, **kwargs):
-    context = {}
+def create_storyblock_view(request, storyslug, *args, **kwargs):
+    story = Story.objects.get(story_slug=storyslug)
+    context = {
+        'story': story
+    }
     return render(request, 'create_storyblock.html', context)
 
-def edit_storyblock_view(request, *args, **kwargs):
-    context = {}
+def edit_storyblock_view(request, blockslug, *args, **kwargs):
+    block = StoryBlock.objects.get(block_slug=blockslug)
+    context = {
+        'storyblock': block
+    }
     return render(request, 'edit_storyblock.html', context)
