@@ -34,6 +34,8 @@ def edit_story_view(request, storyslug, *args, **kwargs):
     # Find the story we're going to edit, and the blocks that belong to it.
     story = Story.objects.get(story_slug=storyslug)
     storyblocks = StoryBlock.objects.filter(story_id=story.story_id)
+    if storyblocks.count() == 0:
+        storyblocks = None
     context = {
         'story': story
         ,'storyblocks': storyblocks
@@ -50,9 +52,17 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
     # Find the story we are going to create blocks for, and any blocks that belong to it.
     story = Story.objects.get(story_slug=storyslug)
     storyblocks = StoryBlock.objects.filter(story_id=story.story_id)
-    # If we are currently creating a storyblock, use the POST data and validate it.
+    # If it is a new story without other blocks, this will change which form we use.
+    if storyblocks.count() <= 3:
+        new_story = True
+    else:
+        new_story = False
     if request.method == 'POST':
-        create_storyblock_form = CreateStoryBlockForm(request.POST)
+        # If we are currently creating a storyblock, use the POST data and validate it.
+        if new_story == False:
+            create_storyblock_form = CreateStoryBlockForm(storyslug, request.POST)
+        elif new_story == True:
+            create_storyblock_form = CreateFirstStoryBlockForm(request.POST)
         if create_storyblock_form.is_valid():
             storyblock = create_storyblock_form.save(commit=False)
             # Do other validations if necessary
@@ -65,13 +75,13 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
             }
         return render(request, 'create_storyblock.html', context)
     # Else if we are just looking at the page, set up a blank form...
-    else:
+    elif request.method != 'POST':
         # If there are already storyblocks in this story, show me a form with more fields!
         if storyblocks:
-            create_storyblock_form = CreateStoryBlockForm(initial={'story_id':story.story_id})
+            create_storyblock_form = CreateStoryBlockForm(storyslug, initial={'story_id':story.story_id})
         # Else if there are no storyblocks and this is the first one, we need fewer fields.
         elif not storyblocks:
-            create_storyblock_form = CreateFirstStoryBlockForm(initial={'story_id':story.story_id})
+            create_storyblock_form = CreateFirstStoryBlockForm(initial={'story_id':story.story_id, 'prev_block_slug': '', 'next_block1_slug': '', 'next_block2_slug': ''})
         context = {
             'story': story
             ,'form': create_storyblock_form

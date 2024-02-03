@@ -7,11 +7,12 @@ class CreateStoryForm(forms.ModelForm):
         fields = ['story_name', 'story_slug']
 
 class CreateStoryBlockForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, storyslug, *args, **kwargs):
+        story = Story.objects.get(story_slug=storyslug)
         super(CreateStoryBlockForm, self).__init__(*args, **kwargs)
-        self.fields['prev_block_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.all(), label='Previous storyblock slug')
-        self.fields['next_block1_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.all(), label='Choice 1 storyblock slug')
-        self.fields['next_block2_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.all(), label='Choice 2 storyblock slug')
+        self.fields['prev_block_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Previous storyblock slug')
+        self.fields['next_block1_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Choice 1 storyblock slug')
+        self.fields['next_block2_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Choice 2 storyblock slug')
 
     class Meta:
         model = StoryBlock
@@ -36,4 +37,10 @@ class CreateFirstStoryBlockForm(forms.ModelForm):
                   ,'block_image_alt' 
                   ,'block_text'
                   ,'next_block1_txt'
-                  ,'next_block2_txt']
+                  ,'next_block2_txt'
+                  ]
+        # widgets = {
+        #     'prev_block_slug': forms.SlugField()
+        #     ,'next_block1_slug': forms.SlugField()
+        #     ,'next_block2_slug': forms.SlugField()
+        # }
