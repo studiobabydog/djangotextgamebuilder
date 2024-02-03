@@ -13,6 +13,9 @@
     {% if storyblocks is None %}
         <p>There are no storyblocks in this story yet. Please <a href="{{ story.get_create_storyblock_url }}">create a storyblock</a> for this story.</p>
     {% else %}
+        {% if new_story is True %}
+            <h4>Note that you must have at least 3 storyblocks in this story to link them together.</h4>
+        {% endif %}
         {% for storyblock in storyblocks %}
             <p>{{ storyblock.block_slug }}</p>
         {% endfor %}

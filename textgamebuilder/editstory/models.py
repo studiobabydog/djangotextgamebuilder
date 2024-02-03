@@ -25,6 +25,9 @@ class Story(models.Model):
 	def get_create_storyblock_url(self):
 		return reverse('create-storyblock', kwargs={'storyslug': self.story_slug})
 	
+	def get_delete_story_url(self):
+		return reverse('delete-story', kwargs={'storyslug': self.story_slug})
+	
 class StoryBlock(models.Model):
 	story_id = models.ForeignKey(Story, on_delete=models.CASCADE)
 	block_id = models.BigAutoField(auto_created=True, primary_key=True, verbose_name='storyblock id')
@@ -44,4 +47,7 @@ class StoryBlock(models.Model):
 		verbose_name_plural = 'story blocks'
 	
 	def __str__(self):
-			return str(f'{self.block_slug}')
+			return str(f'{self.story_id}: {self.block_slug}')
+	
+	def get_delete_storyblock_url(self):
+		return reverse('delete-storyblock', kwargs={'storyblockslug': self.block_slug})

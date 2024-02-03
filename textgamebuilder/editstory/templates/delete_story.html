@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    Deleting Story
+{% endblock %}
+
+{% block content %}
+{% if story is not None %}
+    <h1>Deleted story {{ story.story_name|title }}...</h1>
+    <a href="{% url 'all-stories' %}">Back to All Stories</a>
+    <hr />
+{% else %}
+{% endif %}
+{% endblock %}

@@ -4,5 +4,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>this is my settings font size!</p>
+    {% for storyblock in storyblocks %}
+        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}}</p>
+    {% endfor %}
 {% endblock %}

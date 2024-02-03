@@ -11,7 +11,7 @@
     <ul>
         {% for story in stories %}
             <li>
-                {{ story.story_name|title }} - <a href="{{ story.get_play_url }}">Play</a> - <a href="{{ story.get_edit_story_url }}">Edit</a>
+                {{ story.story_name|title }} - <a href="{{ story.get_play_url }}">Play</a> - <a href="{{ story.get_edit_story_url }}">Edit</a> - <a href="{{ story.get_delete_story_url }}" onclick="return confirm('Are you sure?')">(! Delete !)</a>
             </li>
         {% endfor %}
     </ul>

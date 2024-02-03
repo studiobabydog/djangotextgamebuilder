@@ -26,11 +26,13 @@ urlpatterns = [
     path('all-stories', all_stories_view, name='all-stories'),
     path('create-story', create_story_view, name='create-story'),
     path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story'),
+    path('delete-story/<slug:storyslug>', delete_story_view, name='delete-story'),
 
     path('play-story/<slug:storyslug>', play_story_view, name='play-story'),
     #path('do-block', do_block, name='do-choice'),
     
     path('all-storyblocks', all_storyblocks_view, name='all-storyblocks'),
     path('create-storyblock/<slug:storyslug>', create_storyblock_view, name='create-storyblock'),
-    path('edit-storyblock/<slug:blockslug>', edit_storyblock_view, name='edit-storyblock')
+    path('edit-storyblock/<slug:blockslug>', edit_storyblock_view, name='edit-storyblock'),
+    path('delete-storyblock/<slug:storyblockslug>', delete_storyblock_view, name='delete-storyblock'),
 ]

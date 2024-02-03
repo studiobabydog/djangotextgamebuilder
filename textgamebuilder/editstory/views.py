@@ -36,16 +36,30 @@ def edit_story_view(request, storyslug, *args, **kwargs):
     storyblocks = StoryBlock.objects.filter(story_id=story.story_id)
     if storyblocks.count() == 0:
         storyblocks = None
+    if storyblocks.count() < 3:
+        new_story = True
+    else:
+        new_story = False
     context = {
         'story': story
         ,'storyblocks': storyblocks
+        ,'new_story': new_story
         }
     return render(request, 'edit_story.html', context)
+
+def delete_story_view(request, storyslug, *args, **kwargs):
+    # Find the story we're going to delete, and the blocks that belong to it.
+    story = Story.objects.get(story_slug=storyslug)
+    context = {
+        'story': story
+    }
+    story.delete()
+    return render(request, 'delete_story.html', context)
 
 def all_storyblocks_view(request, *args, **kwargs):
     # Show me ALL the storyblocks, no matter which story they belong to.
     all_storyblocks = StoryBlock.objects.all()
-    context = {'all_storyblocks': all_storyblocks}
+    context = {'storyblocks': all_storyblocks}
     return render(request, 'all_storyblocks.html', context)
 
 def create_storyblock_view(request, storyslug, *args, **kwargs):
@@ -95,3 +109,9 @@ def edit_storyblock_view(request, blockslug, *args, **kwargs):
         'storyblock': block
     }
     return render(request, 'edit_storyblock.html', context)
+
+def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
+    # Find the story we're going to delete, and the blocks that belong to it.
+    storyblock = StoryBlock.objects.get(block_slug=storyblockslug)
+    context = {}
+    return render(request, 'delete_storyblock.html', context)
