@@ -152,7 +152,7 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
         if new_story == False:
             create_storyblock_form = CreateStoryBlockForm(storyslug, request.POST)
         elif new_story == True:
-            create_storyblock_form = CreateFirstStoryBlockForm(request.POST)
+            create_storyblock_form = CreateFirstStoryBlockForm(request.POST, initial={'is_starting_block': True})
         if create_storyblock_form.is_valid():
             storyblock = create_storyblock_form.save(commit=False)
             # Do other validations if necessary

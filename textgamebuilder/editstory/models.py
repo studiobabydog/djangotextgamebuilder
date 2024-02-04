@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import UniqueConstraint, Q
 from django.urls import reverse
 
 # Create your models here.
@@ -45,9 +46,13 @@ class StoryBlock(models.Model):
 	next_block2_slug = models.SlugField(null=True, blank=True, default='block-slug', verbose_name='choice 2 storyblock slug')
 	next_block2_txt = models.CharField(null=True, blank=True, max_length=32, default='go right', verbose_name='choice 2 button text')
 	is_checkpoint = models.BooleanField(default=False)
+	is_starting_block = models.BooleanField(default=False)
 	class Meta:
 		unique_together = ['story_id', 'block_id']
 		verbose_name_plural = 'story blocks'
+		constraints = [
+			UniqueConstraint(fields=('story_id',), condition=Q(is_starting_block=True), name='one_starting_block_per_story')
+			]
 	
 	def __str__(self):
 			return str(f'{self.story_id}: {self.block_slug}')

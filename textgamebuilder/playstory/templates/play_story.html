@@ -15,7 +15,7 @@
         <p>{{storyblock.block_text}}</p>
         <hr />
         <br />
-        <form method="POST" action="/do-block">
+        {% comment %} <form method="POST" action="/do-block">
             {% csrf_token %}
             <input type="hidden" readonly name="story_id" value="{{ storyblock.story_id }}">
             <input type="hidden" readonly name="block_id" value="{{ storyblock.block_id }}">
@@ -24,7 +24,10 @@
             {% endif %}
             <button type="submit" name="block" value="next1">{{ storyblock.next_block1_txt }}</button>
             <button type="submit" name="block" value="next2">{{ storyblock.next_block2_txt }}</button>
-        </form>
+        </form> {% endcomment %}
+        <button href="/play-story/{{ storyblock.next_block1_slug }}">{{ storyblock.next_block1_txt }}</button>
+        <button href="/play-story/{{ storyblock.prev_block_slug }}">{{ storyblock.prev_block_txt }}</button>
+        <button href="/play-story/{{ storyblock.next_block2_slug }}">{{ storyblock.next_block2_txt }}</button>
     {% endif %}
 
 {% else %}

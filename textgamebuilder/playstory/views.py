@@ -9,7 +9,7 @@ def home_view(request, *args, **kwargs):
 def play_story_view(request, storyslug, *args, **kwargs):
     # Find the story we have requested and the first block belonging to that story.
     story = Story.objects.get(story_slug=storyslug)
-    storyblock = StoryBlock.objects.filter(story_id=story.story_id, block_id=1).first()
+    storyblock = StoryBlock.objects.filter(story_id=story.story_id).order_by('block_id').first()
     context = {
         'story': story,
         'storyblock': storyblock,

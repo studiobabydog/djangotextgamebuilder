@@ -21,10 +21,10 @@ class CreateStoryBlockForm(forms.ModelForm):
         self.fields['prev_block_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Previous storyblock slug')
         self.fields['next_block1_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Choice 1 storyblock slug')
         self.fields['next_block2_slug'] = forms.ModelChoiceField(queryset=StoryBlock.objects.filter(story_id=story.story_id), label='Choice 2 storyblock slug')
-
     class Meta:
         model = StoryBlock
         fields = ['story_id'
+                  ,'is_starting_block'
                   ,'block_slug'
                   ,'block_image' 
                   ,'block_image_alt' 
@@ -58,6 +58,7 @@ class EditStoryBlockForm(forms.ModelForm):
     class Meta:
         model = StoryBlock
         fields = ['story_id'
+                  ,'is_starting_block'
                   ,'block_slug'
                   ,'block_image' 
                   ,'block_image_alt' 
