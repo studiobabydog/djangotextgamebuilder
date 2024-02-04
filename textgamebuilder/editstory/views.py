@@ -1,10 +1,12 @@
 # Django Imports
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic.edit import UpdateView
+from django.views.generic.list import ListView
 
 # Custom Imports
 from .models import Story, StoryBlock
-from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm
+from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm, EditFirstStoryBlockForm
 
 # Create your views here.
 def all_stories_view(request, *args, **kwargs):
@@ -34,11 +36,10 @@ def edit_story_view(request, storyslug, *args, **kwargs):
     # Find the story we're going to edit, and the blocks that belong to it.
     story = Story.objects.get(story_slug=storyslug)
     storyblocks = StoryBlock.objects.filter(story_id=story.story_id)
+    new_story = True
     if storyblocks.count() == 0:
         storyblocks = None
-    if storyblocks.count() < 3:
-        new_story = True
-    else:
+    elif storyblocks.count() >= 3:
         new_story = False
     context = {
         'story': story
@@ -55,12 +56,10 @@ def delete_story_view(request, storyslug, *args, **kwargs):
     }
     story.delete()
     return render(request, 'delete_story.html', context)
-
-def all_storyblocks_view(request, *args, **kwargs):
+class cb_all_storyblocks_view(ListView):
     # Show me ALL the storyblocks, no matter which story they belong to.
-    all_storyblocks = StoryBlock.objects.all()
-    context = {'storyblocks': all_storyblocks}
-    return render(request, 'all_storyblocks.html', context)
+    model = StoryBlock
+    template_name = 'all_storyblocks.html'
 
 def create_storyblock_view(request, storyslug, *args, **kwargs):
     # Find the story we are going to create blocks for, and any blocks that belong to it.
@@ -106,16 +105,28 @@ def edit_storyblock_view(request, storyblockslug, *args, **kwargs):
     # Find the storyblock that we want to edit.
     block = StoryBlock.objects.get(block_slug=storyblockslug)
     story = Story.objects.get(story_id=block.story_id.story_id)
+    # if request.method == 'POST':
+    # elif request.method != 'POST':
     context = {
         'story': story
         ,'storyblock': block
     }
     return render(request, 'edit_storyblock.html', context)
 
-# class classbased_edit_storyblock_view(UpdateView):
-#     model = StoryBlock
-#     template_name = 'storyblock_edit.html'
-#     form_class = EditStoryBlockForm
+class cb_edit_storyblock_view(UpdateView):
+    model = StoryBlock
+    template_name = 'edit_storyblock.html'
+    form_class = EditStoryBlockForm
+    def get_success_url(self):
+        print(self)
+        return reverse('all-stories')
+
+class cb_edit_first_storyblock_view(UpdateView):
+    model = StoryBlock
+    template_name = 'edit_storyblock.html'
+    form_class = EditFirstStoryBlockForm
+    def get_success_url(self):
+        return reverse('all-stories')
 
 def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
     # Find the story we're going to delete, and the blocks that belong to it.

@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block content %}
-{% if story is not None %}
     <h1>Editing blocks for {{ story.story_name|title }}...</h1>
     <a href="{% url 'all-stories' %}">Back to Edit Story</a>
     <hr />
-    {{ storyblock.block_slug }}
-{% else %}
-{% endif %}
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
 {% endblock %}

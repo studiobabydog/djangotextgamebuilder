@@ -31,9 +31,9 @@ urlpatterns = [
     ,path('play-story/<slug:storyslug>', play_story_view, name='play-story')
     #path('do-block', do_block, name='do-choice')
     
-    ,path('all-storyblocks', all_storyblocks_view, name='all-storyblocks')
+    ,path('all-storyblocks', cb_all_storyblocks_view.as_view(), name='all-storyblocks')
     ,path('create-storyblock/<slug:storyslug>', create_storyblock_view, name='create-storyblock')
-    ,path('edit-storyblock/<slug:storyblockslug>', edit_storyblock_view, name='edit-storyblock')
     ,path('delete-storyblock/<slug:storyblockslug>', delete_storyblock_view, name='delete-storyblock')
-    #,path('edit-story/edit/<pk>', classbased_edit_storyblock_view.as_view(), name='storyblock-edit')
+    ,path('edit-story/edit-block/<pk>', cb_edit_storyblock_view.as_view(), name='edit-storyblock')
+    ,path('edit-story/edit-unlinked-block/<pk>', cb_edit_first_storyblock_view.as_view(), name='edit-unlinked-storyblock')
 ]

@@ -5,6 +5,20 @@
 
 {% block content %}
     {% for storyblock in storyblocks %}
-        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}} - <a href="{{ storyblock.get_edit_storyblock_url }}">Edit</a></p>
+        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}}</p>
     {% endfor %}
+
+
+<ul> 
+    <!-- Iterate over object_list -->
+    {% for object in object_list %} 
+    <!-- Display Objects -->
+    <p>{{ object.story_id }}: {{object.block_slug}}</p>
+    <hr/> 
+    <!-- If object_list is empty  -->
+    {% empty %} 
+    <li>No objects yet.</li> 
+    {% endfor %} 
+</ul>
+
 {% endblock %}

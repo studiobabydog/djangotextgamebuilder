@@ -6,8 +6,6 @@
 {% block content %}
 {% if story is not None %}
     <h1>Editing {{ story.story_name|title }}...</h1>
-    <a href="{% url 'all-stories' %}">Back to All Stories</a>
-    <br />
     <a href="{{ story.get_create_storyblock_url }}">Create a story block for this story...</a>
     <hr />
     {% if storyblocks is None %}
@@ -15,10 +13,20 @@
     {% else %}
         {% if new_story is True %}
             <h4>Note that you must have at least 3 storyblocks in this story to link them together.</h4>
+            {% for storyblock in storyblocks %}
+                <p>{{ storyblock.block_slug }}
+                    <a href="{{ storyblock.get_delete_storyblock_url }}" onclick="return confirm('Are you sure?')">Delete</a> - 
+                    <a href="edit-unlinked-block/{{ storyblock.block_id }}">Edit</a>
+                </p>
+            {% endfor %}
+        {% elif new_story is False %}
+            {% for storyblock in storyblocks %}
+                <p>{{ storyblock.block_slug }}
+                    <a href="{{ storyblock.get_delete_storyblock_url }}" onclick="return confirm('Are you sure?')">Delete</a> - 
+                    <a href="edit-block/{{ storyblock.block_id }}">Edit</a>
+                </p>
+            {% endfor %}
         {% endif %}
-        {% for storyblock in storyblocks %}
-            <p>{{ storyblock.block_slug }} <a href="{{ storyblock.get_edit_storyblock_url }}">Edit</a> - <a href="{{ storyblock.get_delete_storyblock_url }}" onclick="return confirm('Are you sure?')">Delete</a></p>
-        {% endfor %}
     {% endif %}
 {% else %}
     <p>You have not chosen a story to edit. Please <a href="{% url 'all-stories' %}">select a story to edit.</a></p>
