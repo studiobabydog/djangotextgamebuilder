@@ -24,7 +24,7 @@ urlpatterns = [
     ,path('', home_view, name='home')
     
     ,path('all-stories', all_stories_view, name='all-stories')
-    ,path('create-story', create_story_view, name='create-story')
+    ,path('create-story', cb_create_story_view.as_view(), name='create-story')
     ,path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story')
     ,path('delete-story/<slug:storyslug>', delete_story_view, name='delete-story')
 
