@@ -16,6 +16,9 @@ class Story(models.Model):
 	def get_play_url(self):
 		return reverse('play-story', kwargs={'storyslug': self.story_slug})
 	
+	def get_edit_story_properties_url(self):
+		return reverse('edit-story-properties', kwargs={'storyid': self.story_id})
+	
 	def get_edit_story_url(self):
 		return reverse('edit-story', kwargs={'storyslug': self.story_slug})
 	

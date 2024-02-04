@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 
 # Custom Imports
 from .models import Story, StoryBlock
-from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm, EditFirstStoryBlockForm
+from .forms import CreateStoryForm, EditStoryPropertiesForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm, EditFirstStoryBlockForm
 
 
 ### Dev note: we included both function-based and class-based views; feel free to use
@@ -16,7 +16,7 @@ from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockF
 # Function-based view to see all stories
 def all_stories_view(request, *args, **kwargs):
     # Show me ALL active stories (until you deactive a story, it will be active.)
-    stories = Story.objects.filter(story_isactive=True)
+    stories = Story.objects.all()
     context = {
         'stories': stories,
     }
@@ -48,6 +48,42 @@ class cb_create_story_view(CreateView):
     model = Story
     form_class = CreateStoryForm
     template_name = 'create_story.html'
+    success_url = 'all-stories'
+
+# Function-based view to edit story properties (name/slug):
+def edit_story_properties_view(request, storyid, *args, **kwargs):
+    # Find the storyblock that we want to edit.
+    story = Story.objects.get(story_id=storyid)
+    if request.method == 'POST':
+        edit_story_properties_form = EditStoryPropertiesForm(storyid)
+        is_active = request.POST.get('story_isactive')
+        try:
+            story.story_name = request.POST.get('story_name')
+            story.story_slug = request.POST.get('story_slug')
+            if is_active == 'on':
+                story.story_isactive = True
+            else:
+                story.story_isactive = False
+            print(story.story_isactive)
+            story.full_clean()
+            story.save()
+        except Exception as e:
+            print(e)
+        return redirect('all-stories')
+    elif request.method != 'POST':
+       edit_story_properties_form = EditStoryPropertiesForm(storyid, initial={'story_name':story.story_name, 'story_slug': story.story_slug, 'story_isactive': story.story_isactive})
+    context = {
+        'story': story
+        ,'form': edit_story_properties_form
+    }
+    return render(request, 'edit_story_properties.html', context)
+
+
+# Class-based view to edit story properties (name/slug):
+class cb_edit_story_properties_view(UpdateView):
+    model = Story
+    form_class = EditStoryPropertiesForm
+    template_name = 'edit_story_properties.html'
     success_url = 'all-stories'
 
 # Function-based view to edit stories:
@@ -167,7 +203,6 @@ class cb_edit_storyblock_view(UpdateView):
     template_name = 'edit_storyblock.html'
     form_class = EditStoryBlockForm
     def get_success_url(self):
-        print(self)
         return reverse('all-stories')
 
 # Class-based view to edit UNLINKED storyblocks (no links to other storyblocks yet)

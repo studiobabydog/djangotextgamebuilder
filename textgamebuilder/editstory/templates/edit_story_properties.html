@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Edit Story Properties
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'all-stories' %}">Back to All Stories</a>
+<hr />
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        {{ form.as_p }}
+    </div>
+    <input type="submit" name="edit-story-properties" value="Edit Story">
+</form>
+{% endblock %}

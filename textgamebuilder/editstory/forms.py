@@ -6,6 +6,14 @@ class CreateStoryForm(forms.ModelForm):
         model = Story
         fields = ['story_name', 'story_slug']
 
+class EditStoryPropertiesForm(forms.ModelForm):
+    def __init__(self, storyid, *args, **kwargs):
+        story = Story.objects.get(story_id=storyid)
+        super(EditStoryPropertiesForm, self).__init__(*args, **kwargs)
+    class Meta:
+        model = Story
+        fields = ['story_name', 'story_slug', 'story_isactive']
+
 class CreateStoryBlockForm(forms.ModelForm):
     def __init__(self, storyslug, *args, **kwargs):
         story = Story.objects.get(story_slug=storyslug)

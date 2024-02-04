@@ -29,6 +29,7 @@ urlpatterns = [
     # Function-Based Views
     ,path('all-stories', all_stories_view, name='all-stories')
     ,path('create-story', create_story_view, name='create-story')
+    ,path('edit-story-properties/<int:storyid>', edit_story_properties_view, name='edit-story-properties')
     ,path('delete-story/<slug:storyslug>', delete_story_view, name='delete-story')
     ,path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story')
     ,path('all-storyblocks', all_storyblocks_view, name='all-storyblocks')
@@ -39,9 +40,10 @@ urlpatterns = [
     # Class-Based Views
     ,path('cb-all-stories', cb_all_stories_view.as_view(), name='cb-all-stories')
     ,path('cb-create-story', cb_create_story_view.as_view(), name='cb-create-story')
-    ,path('cb-delete-story', cb_delete_story_view.as_view(), name='cb-delete-story')
+    ,path('cb-edit-story-properties/<pk>', cb_edit_story_properties_view.as_view(), name='cb-edit-story-properties')
+    ,path('cb-delete-story/<pk>', cb_delete_story_view.as_view(), name='cb-delete-story')
     ,path('cb-all-storyblocks', cb_all_storyblocks_view.as_view(), name='cb-all-storyblocks')
-    ,path('cb-delete-storyblock', cb_delete_storyblock_view.as_view(), name='cb-delete-storyblock')
+    ,path('cb-delete-storyblock/<pk>', cb_delete_storyblock_view.as_view(), name='cb-delete-storyblock')
     ,path('edit-story/cb-edit-block/<pk>', cb_edit_storyblock_view.as_view(), name='cb-edit-storyblock')
     ,path('edit-story/cb-edit-unlinked-block/<pk>', cb_edit_first_storyblock_view.as_view(), name='cb-edit-unlinked-storyblock')
 
