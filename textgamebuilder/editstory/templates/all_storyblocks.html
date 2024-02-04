@@ -4,11 +4,6 @@
 {% endblock %}
 
 {% block content %}
-    {% for storyblock in storyblocks %}
-        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}}</p>
-    {% endfor %}
-
-
 <ul> 
     <!-- Iterate over object_list -->
     {% for object in object_list %} 

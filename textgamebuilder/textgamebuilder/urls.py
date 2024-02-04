@@ -22,18 +22,27 @@ from editstory.views import *
 urlpatterns = [
     path('admin/', admin.site.urls)
     ,path('', home_view, name='home')
-    
-    ,path('all-stories', all_stories_view, name='all-stories')
-    ,path('create-story', cb_create_story_view.as_view(), name='create-story')
-    ,path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story')
-    ,path('delete-story/<slug:storyslug>', delete_story_view, name='delete-story')
 
     ,path('play-story/<slug:storyslug>', play_story_view, name='play-story')
     #path('do-block', do_block, name='do-choice')
     
-    ,path('all-storyblocks', cb_all_storyblocks_view.as_view(), name='all-storyblocks')
+    # Function-Based Views
+    ,path('all-stories', all_stories_view, name='all-stories')
+    ,path('create-story', create_story_view, name='create-story')
+    ,path('delete-story/<slug:storyslug>', delete_story_view, name='delete-story')
+    ,path('edit-story/<slug:storyslug>', edit_story_view, name='edit-story')
+    ,path('all-storyblocks', all_storyblocks_view, name='all-storyblocks')
     ,path('create-storyblock/<slug:storyslug>', create_storyblock_view, name='create-storyblock')
     ,path('delete-storyblock/<slug:storyblockslug>', delete_storyblock_view, name='delete-storyblock')
-    ,path('edit-story/edit-block/<pk>', cb_edit_storyblock_view.as_view(), name='edit-storyblock')
-    ,path('edit-story/edit-unlinked-block/<pk>', cb_edit_first_storyblock_view.as_view(), name='edit-unlinked-storyblock')
+    ,path('edit-storyblock/<slug:blockslug>', edit_storyblock_view, name='edit-storyblock')
+
+    # Class-Based Views
+    ,path('cb-all-stories', cb_all_stories_view.as_view(), name='cb-all-stories')
+    ,path('cb-create-story', cb_create_story_view.as_view(), name='cb-create-story')
+    ,path('cb-delete-story', cb_delete_story_view.as_view(), name='cb-delete-story')
+    ,path('cb-all-storyblocks', cb_all_storyblocks_view.as_view(), name='cb-all-storyblocks')
+    ,path('cb-delete-storyblock', cb_delete_storyblock_view.as_view(), name='cb-delete-storyblock')
+    ,path('edit-story/cb-edit-block/<pk>', cb_edit_storyblock_view.as_view(), name='cb-edit-storyblock')
+    ,path('edit-story/cb-edit-unlinked-block/<pk>', cb_edit_first_storyblock_view.as_view(), name='cb-edit-unlinked-storyblock')
+
 ]

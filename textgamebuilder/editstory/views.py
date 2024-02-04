@@ -8,9 +8,11 @@ from django.views.generic.list import ListView
 from .models import Story, StoryBlock
 from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm, EditFirstStoryBlockForm
 
-### Code for Stories starts here -- scroll down for StoryBlocks ###
-# Create your views here.
 
+### Dev note: we included both function-based and class-based views; feel free to use
+### whichever works best for you! The base deployment site uses both, so check it out.
+
+### !!! Code for Stories starts here -- scroll down for StoryBlocks !!! ###
 # Function-based view to see all stories
 def all_stories_view(request, *args, **kwargs):
     # Show me ALL active stories (until you deactive a story, it will be active.)
@@ -26,20 +28,20 @@ class cb_all_stories_view(ListView):
     template_name = 'all_stories.html'
 
 # Function-based view to create stories:
-# def create_story_view(request, *args, **kwargs):
-#     # If we are currently creating a new story, use the POST data and validate it.
-#     if request.method == 'POST':
-#         create_story_form = CreateStoryForm(request.POST)
-#         if create_story_form.is_valid():
-#             story = create_story_form.save(commit=False)
-#             # Do other validations if necessary
-#             story.save()
-#             return redirect('all-stories')
-#     # Else if we are just looking at the page, set up a blank form to enter data into.
-#     else:
-#         create_story_form = CreateStoryForm()
-#     context = {'form': create_story_form}
-#     return render(request, 'create_story.html', context)
+def create_story_view(request, *args, **kwargs):
+    # If we are currently creating a new story, use the POST data and validate it.
+    if request.method == 'POST':
+        create_story_form = CreateStoryForm(request.POST)
+        if create_story_form.is_valid():
+            story = create_story_form.save(commit=False)
+            # Do other validations if necessary
+            story.save()
+            return redirect('all-stories')
+    # Else if we are just looking at the page, set up a blank form to enter data into.
+    else:
+        create_story_form = CreateStoryForm()
+    context = {'form': create_story_form}
+    return render(request, 'create_story.html', context)
 
 # Class-based view to create stories:
 class cb_create_story_view(CreateView):
@@ -65,6 +67,9 @@ def edit_story_view(request, storyslug, *args, **kwargs):
         }
     return render(request, 'edit_story.html', context)
 
+# Class-based view to edit stories:
+# Coming soon!
+
 # Function-based view to delete stories:
 def delete_story_view(request, storyslug, *args, **kwargs):
     # Find the story we're going to delete, and the blocks that belong to it.
@@ -81,12 +86,22 @@ class cb_delete_story_view(DeleteView):
     template_name = 'delete_story.html'
     success_url  = 'all-stories'
 
-### Switching to code about StoryBlocks Below ###
+### !!! Code about StoryBlocks is Below !!! ###
+# Function-based view to see all storyblocks:
+def all_storyblocks_view(request, *args, **kwargs):
+    # Show me ALL the storyblocks, no matter which story they belong to.
+    all_storyblocks = StoryBlock.objects.all()
+    context = {'object_list': all_storyblocks}
+    return render(request, 'all_storyblocks.html', context)
+
+# Class-based view to see all storyblocks:
 class cb_all_storyblocks_view(ListView):
     # Show me ALL the storyblocks, no matter which story they belong to.
     model = StoryBlock
     template_name = 'all_storyblocks.html'
 
+
+# Function-based view to create a new storyblock:
 def create_storyblock_view(request, storyslug, *args, **kwargs):
     # Find the story we are going to create blocks for, and any blocks that belong to it.
     story = Story.objects.get(story_slug=storyslug)
@@ -127,21 +142,24 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
             }
         return render(request, 'create_storyblock.html', context)
 
+# Class-based view to create a new storyblock:
+# Coming soon!
+
 # Function-based view to edit storyblocks
-# def edit_storyblock_view(request, storyblockslug, *args, **kwargs):
-#     # Find the storyblock that we want to edit.
-#     block = StoryBlock.objects.get(block_slug=storyblockslug)
-#     story = Story.objects.get(story_id=block.story_id.story_id)
-#     if request.method == 'POST':
-#       edit_storyblock_form = EditFirstStoryBlockForm(request.POST)
-#     elif request.method != 'POST':
-#        edit_storyblock_form = EditFirstStoryBlockForm()
-#     context = {
-#         'story': story
-#         ,'storyblock': block
-#         ,'form': edit_storyblock_form
-#     }
-#     return render(request, 'edit_storyblock.html', context)
+def edit_storyblock_view(request, storyblockslug, *args, **kwargs):
+    # Find the storyblock that we want to edit.
+    block = StoryBlock.objects.get(block_slug=storyblockslug)
+    story = Story.objects.get(story_id=block.story_id.story_id)
+    if request.method == 'POST':
+      edit_storyblock_form = EditFirstStoryBlockForm(request.POST)
+    elif request.method != 'POST':
+       edit_storyblock_form = EditFirstStoryBlockForm()
+    context = {
+        'story': story
+        ,'storyblock': block
+        ,'form': edit_storyblock_form
+    }
+    return render(request, 'edit_storyblock.html', context)
 
 # Class-based view to edit LINKED storyblocks (with slugs to other storyblocks)
 class cb_edit_storyblock_view(UpdateView):
@@ -168,3 +186,9 @@ def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
         'storyblock': storyblock
     }
     return render(request, 'delete_storyblock.html', context)
+
+# Class-based view to delete storyblocks:
+class cb_delete_storyblock_view(DeleteView):
+    model = StoryBlock
+    template_name = 'delete_storyblock.html'
+    success_url  = 'all-storyblocks'
