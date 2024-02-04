@@ -1,10 +1,10 @@
 # Django Imports
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.views.generic.edit import UpdateView
 
 # Custom Imports
 from .models import Story, StoryBlock
-from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm
+from .forms import CreateStoryForm, CreateStoryBlockForm, CreateFirstStoryBlockForm, EditStoryBlockForm
 
 # Create your views here.
 def all_stories_view(request, *args, **kwargs):
@@ -102,13 +102,20 @@ def create_storyblock_view(request, storyslug, *args, **kwargs):
             }
         return render(request, 'create_storyblock.html', context)
 
-def edit_storyblock_view(request, blockslug, *args, **kwargs):
+def edit_storyblock_view(request, storyblockslug, *args, **kwargs):
     # Find the storyblock that we want to edit.
-    block = StoryBlock.objects.get(block_slug=blockslug)
+    block = StoryBlock.objects.get(block_slug=storyblockslug)
+    story = Story.objects.get(story_id=block.story_id.story_id)
     context = {
-        'storyblock': block
+        'story': story
+        ,'storyblock': block
     }
     return render(request, 'edit_storyblock.html', context)
+
+# class classbased_edit_storyblock_view(UpdateView):
+#     model = StoryBlock
+#     template_name = 'storyblock_edit.html'
+#     form_class = EditStoryBlockForm
 
 def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
     # Find the story we're going to delete, and the blocks that belong to it.

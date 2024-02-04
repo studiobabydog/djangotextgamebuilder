@@ -17,7 +17,7 @@
             <h4>Note that you must have at least 3 storyblocks in this story to link them together.</h4>
         {% endif %}
         {% for storyblock in storyblocks %}
-            <p>{{ storyblock.block_slug }}</p>
+            <p>{{ storyblock.block_slug }} <a href="{{ storyblock.get_edit_storyblock_url }}">Edit</a> - <a href="{{ storyblock.get_delete_storyblock_url }}" onclick="return confirm('Are you sure?')">Delete</a></p>
         {% endfor %}
     {% endif %}
 {% else %}

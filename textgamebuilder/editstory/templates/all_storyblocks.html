@@ -5,6 +5,6 @@
 
 {% block content %}
     {% for storyblock in storyblocks %}
-        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}}</p>
+        <p>{{ storyblock.story_id }}: {{storyblock.block_slug}} - <a href="{{ storyblock.get_edit_storyblock_url }}">Edit</a></p>
     {% endfor %}
 {% endblock %}
