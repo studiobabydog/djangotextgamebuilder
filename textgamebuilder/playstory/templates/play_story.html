@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    Play a Story
+    Play a Story - {{ story.story_name }}
 {% endblock %}
 
 {% block content %}
@@ -10,24 +10,14 @@
     {% if storyblock is None %}
         <p>This story is not ready to play (missing story blocks). Please <a href="{{ story.get_edit_story_url }}">edit the story.</a></p>
     {% else %}
-        <img src="{{ storyblock.block_image }}" alt="{{ storyblock.block_image_alt }}">
-        <br />
-        <p>{{storyblock.block_text}}</p>
-        <hr />
-        <br />
-        {% comment %} <form method="POST" action="/do-block">
-            {% csrf_token %}
-            <input type="hidden" readonly name="story_id" value="{{ storyblock.story_id }}">
-            <input type="hidden" readonly name="block_id" value="{{ storyblock.block_id }}">
-            {% if storyblock.prev_block_txt != "block" %}
-            <button type="submit" name="block" value="back">{{ storyblock.prev_block_txt }}</button>
-            {% endif %}
-            <button type="submit" name="block" value="next1">{{ storyblock.next_block1_txt }}</button>
-            <button type="submit" name="block" value="next2">{{ storyblock.next_block2_txt }}</button>
-        </form> {% endcomment %}
-        <button href="/play-story/{{ storyblock.next_block1_slug }}">{{ storyblock.next_block1_txt }}</button>
-        <button href="/play-story/{{ storyblock.prev_block_slug }}">{{ storyblock.prev_block_txt }}</button>
-        <button href="/play-story/{{ storyblock.next_block2_slug }}">{{ storyblock.next_block2_txt }}</button>
+            <img src="{{ storyblock.block_image }}" alt="{{ storyblock.block_image_alt }}">
+            <br />
+            <p>{{ storyblock.block_text }}</p>
+            <hr />
+            <br />
+            <button href="/play-story/{{ storyblock.next_block1_slug }}">{{ storyblock.next_block1_txt }}</button>
+            <button href="/play-story/{{ storyblock.prev_block_slug }}">{{ storyblock.prev_block_txt }}</button>
+            <button href="/play-story/{{ storyblock.next_block2_slug }}">{{ storyblock.next_block2_txt }}</button>
     {% endif %}
 
 {% else %}

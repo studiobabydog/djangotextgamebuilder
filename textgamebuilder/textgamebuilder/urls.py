@@ -23,10 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls)
     ,path('', home_view, name='home')
 
+    ,path('start-story/<slug:storyslug>', start_story_view, name='start-story')
     ,path('play-story/<slug:storyslug>', play_story_view, name='play-story')
-    #path('do-block', do_block, name='do-choice')
     
-    # Function-Based Views
+    # Function-Based Views - Edit Stories and Storyblocks
     ,path('all-stories', all_stories_view, name='all-stories')
     ,path('create-story', create_story_view, name='create-story')
     ,path('edit-story-properties/<int:storyid>', edit_story_properties_view, name='edit-story-properties')
@@ -37,7 +37,7 @@ urlpatterns = [
     ,path('delete-storyblock/<slug:storyblockslug>', delete_storyblock_view, name='delete-storyblock')
     ,path('edit-storyblock/<slug:blockslug>', edit_storyblock_view, name='edit-storyblock')
 
-    # Class-Based Views
+    # Class-Based Views - Edit Stories and Storyblocks
     ,path('cb-all-stories', cb_all_stories_view.as_view(), name='cb-all-stories')
     ,path('cb-create-story', cb_create_story_view.as_view(), name='cb-create-story')
     ,path('cb-edit-story-properties/<pk>', cb_edit_story_properties_view.as_view(), name='cb-edit-story-properties')

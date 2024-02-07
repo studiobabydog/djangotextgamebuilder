@@ -203,7 +203,9 @@ class cb_edit_storyblock_view(UpdateView):
     template_name = 'edit_storyblock.html'
     form_class = EditStoryBlockForm
     def get_success_url(self):
-        return reverse('all-stories')
+        story = Story.objects.get(story_id = self.request.POST.get('story_id'))
+        story_slug = str(story.story_slug)
+        return reverse('edit-story', kwargs={'storyslug':story_slug})
 
 # Class-based view to edit UNLINKED storyblocks (no links to other storyblocks yet)
 class cb_edit_first_storyblock_view(UpdateView):
@@ -211,7 +213,9 @@ class cb_edit_first_storyblock_view(UpdateView):
     template_name = 'edit_storyblock.html'
     form_class = EditFirstStoryBlockForm
     def get_success_url(self):
-        return reverse('all-stories')
+        story = Story.objects.get(story_id = self.request.POST.get('story_id'))
+        story_slug = str(story.story_slug)
+        return reverse('edit-story', kwargs={'storyslug':story_slug})
 
 # Function-based view to delete storyblocks:
 def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
@@ -226,4 +230,7 @@ def delete_storyblock_view(request, storyblockslug, *args, **kwargs):
 class cb_delete_storyblock_view(DeleteView):
     model = StoryBlock
     template_name = 'delete_storyblock.html'
-    success_url  = 'all-storyblocks'
+    def get_success_url(self):
+        story = Story.objects.get(story_id = self.request.POST.get('story_id'))
+        story_slug = str(story.story_slug)
+        return reverse('edit-story', kwargs={'storyslug':story_slug})

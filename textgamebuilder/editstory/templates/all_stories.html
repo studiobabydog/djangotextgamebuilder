@@ -13,7 +13,7 @@
             <li>
                 {{ story.story_name|title }} 
                 {% if story.story_isactive %}
-                - <a href="{{ story.get_play_url }}">Play</a>
+                - <a href="{{ story.get_start_url }}">Start</a>
                 {% endif %} 
                 - <a href="{{ story.get_edit_story_url }}">Edit</a> - <a href="{{ story.get_delete_story_url }}" onclick="return confirm('Are you sure?')">Delete</a>
             </li>

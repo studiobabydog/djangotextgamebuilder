@@ -5,7 +5,7 @@
 
 {% block content %}
 {% if storyblock is not None %}
-    <h1>Deleted storyblock {{ storyblock.block_slug }} in story {{ storyblock.story_id }}...</h1>
+    <h1>Deleted storyblock "{{ storyblock.block_slug }}" in story "{{ storyblock.story_id|title }}"...</h1>
     <a href="{% url 'all-stories' %}">Back to All Stories</a>
     <hr />
 {% else %}
