@@ -15,9 +15,9 @@
             <p>{{ storyblock.block_text }}</p>
             <hr />
             <br />
-            <button href="/play-story/{{ storyblock.next_block1_slug }}">{{ storyblock.next_block1_txt }}</button>
-            <button href="/play-story/{{ storyblock.prev_block_slug }}">{{ storyblock.prev_block_txt }}</button>
-            <button href="/play-story/{{ storyblock.next_block2_slug }}">{{ storyblock.next_block2_txt }}</button>
+            <a href="/play-story/{{ storyblock.next_block1_slug }}"><button>{{ storyblock.next_block1_txt }}</button></a>
+            <a href="/play-story/{{ storyblock.prev_block_slug }}"><button>{{ storyblock.prev_block_txt }}</button></a>
+            <a href="/play-story/{{ storyblock.next_block2_slug }}"><button>{{ storyblock.next_block2_txt }}</button></a>
     {% endif %}
 
 {% else %}

@@ -6,7 +6,9 @@
 {% block content %}
 {% if story is not None %}
     <h1>Editing {{ story.story_name|title }}...</h1>
-    <a href="{{ story.get_create_storyblock_url }}">Create a story block for this story...</a>
+    <a href="{{ story.get_start_url }}">Start this story</a>
+    <br />
+    <a href="{{ story.get_create_storyblock_url }}">Create a story block for this story</a>
     <br />
     <a href="{{ story.get_edit_story_properties_url }}">Change this story's properties (name, URL, active)</a>
     <hr />

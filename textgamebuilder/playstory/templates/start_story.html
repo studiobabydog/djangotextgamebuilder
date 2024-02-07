@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    Start a Story
+    Start Story: {{ story.story_name|title }}
 {% endblock %}
 
 {% block content %}
@@ -18,8 +18,8 @@
             <p>{{ starting_storyblock.block_text }}</p>
             <hr />
             <br />
-            <button href="/play-story/{{ starting_storyblock.next_block1_slug }}">{{ starting_storyblock.next_block1_txt }}</button>
-            <button href="/play-story/{{ starting_storyblock.next_block2_slug }}">{{ starting_storyblock.next_block2_txt }}</button>
+            <a href="/play-story/{{ starting_storyblock.next_block1_slug }}"><button>{{ starting_storyblock.next_block1_txt }}</button></a>
+            <a href="/play-story/{{ starting_storyblock.next_block2_slug }}"><button>{{ starting_storyblock.next_block2_txt }}</button></a>
         {% endif %}
     {% endif %}
 

@@ -18,9 +18,10 @@ def start_story_view(request, storyslug, *args, **kwargs):
         }
     return render(request, 'start_story.html', context)
 
-def play_story_view(request, storyblockslug, *args, **kwargs):
+def play_story_view(request, *args, **kwargs):
     # Find the requested storyblock and present it.
-    storyblock = StoryBlock.objects.get(block_slug=storyblockslug)
+    print(request.GET)
+    storyblock = StoryBlock.objects.get(block_slug='default-block-slug')
     story = Story.objects.get(story_id = storyblock.story_id)
     context = {
         'story': story,

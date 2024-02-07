@@ -55,7 +55,7 @@ class StoryBlock(models.Model):
 			]
 	
 	def __str__(self):
-			return str(f'{self.story_id}: {self.block_slug}')
+			return str(f'{self.block_slug}')
 	
 	def get_edit_storyblock_url(self):
 		return reverse('edit-storyblock', kwargs={'storyblockslug': self.block_slug})
