@@ -18,8 +18,10 @@
         {% if new_story is True %}
             <h4>Note that you must have at least 3 storyblocks in this story to link them together.</h4>
             {% for storyblock in storyblocks %}
-                <p>{% if storyblock.is_starting_block is True%}
+                <p>{% if storyblock.is_starting_block is True or storyblock.is_ending_block is True %}
                         <span style="color:red">{{ storyblock.block_slug }}</span>
+                    {% elif storyblock.is_deadend_block is True %}
+                        <span style="color:orange">{{ storyblock.block_slug }} (dead end block)</span>
                     {% else %}
                         {{ storyblock.block_slug }}
                     {% endif %}
@@ -29,8 +31,12 @@
             {% endfor %}
         {% elif new_story is False %}
             {% for storyblock in storyblocks %}
-                <p>{% if storyblock.is_starting_block is True%}
+                <p>{% if storyblock.is_starting_block is True %}
                         <span style="color:red">{{ storyblock.block_slug }} (starting block)</span>
+                    {% elif storyblock.is_ending_block is True %}
+                        <span style="color:red">{{ storyblock.block_slug }} (ending block)</span>
+                    {% elif storyblock.is_deadend_block is True %}
+                        <span style="color: orange">{{ storyblock.block_slug }} (dead end block)</span>
                     {% else %}
                         {{ storyblock.block_slug }}
                     {% endif %}
