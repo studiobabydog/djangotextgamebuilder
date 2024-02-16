@@ -11,8 +11,10 @@
         <p>This story is not ready to play (missing story blocks). Please <a href="{{ story.get_edit_story_url }}">edit the story.</a></p>
     {% else %}
             {% comment %} 
-                Uncomment this section if you would like to use images from a URL.
+                Dev Notes: Uncomment this section if you would like to use images from a URL.
+                There is also info in the storyblock model about using static images instead.
                 A placeholder image is provided in the static directory to improve load times.
+                You can also opt to not use images at all and have it be pure text.
                 <img src="{{ storyblock.block_image }}" alt="{{ storyblock.block_image_alt }}"> 
             {% endcomment %}
             {% load static %}
@@ -21,11 +23,18 @@
             <p>{{ storyblock.block_text }}</p>
             <hr />
             <br />
-            <a href="{{ storyblock.get_next_block1_url }}"><button>{{ storyblock.next_block1_txt }}</button></a>
-            {% if not storyblock.is_starting_block %}
+            {% if not storyblock.is_deadend_block and not storyblock.is_ending_block %}
+                <a href="{{ storyblock.get_next_block1_url }}"><button>{{ storyblock.next_block1_txt }}</button></a>
+                {% if not storyblock.is_starting_block %}
+                    <a href="{{ storyblock.get_prev_block_url }}"><button>{{ storyblock.prev_block_txt }}</button></a>
+                {% endif %}
+                <a href="{{ storyblock.get_next_block2_url }}"><button>{{ storyblock.next_block2_txt }}</button></a>
+            {% elif storyblock.is_deadend_block %}
                 <a href="{{ storyblock.get_prev_block_url }}"><button>{{ storyblock.prev_block_txt }}</button></a>
+                <a href="{{ story.get_start_url }}"><button>Back to the Start...</button></a>
+            {% elif storyblock.is_ending_block %}
+                <a href="{% url 'all-stories' %}"><button>Back to All Stories</button></a>
             {% endif %}
-            <a href="{{ storyblock.get_next_block2_url }}"><button>{{ storyblock.next_block2_txt }}</button></a>
     {% endif %}
 
 {% else %}

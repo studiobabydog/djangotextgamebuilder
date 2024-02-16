@@ -48,11 +48,17 @@ class StoryBlock(models.Model):
 	next_block2_txt = models.CharField(null=True, blank=True, max_length=32, default='go right', verbose_name='choice 2 button text')
 	is_checkpoint = models.BooleanField(default=False)
 	is_starting_block = models.BooleanField(default=False)
+	is_ending_block = models.BooleanField(default=False)
+	is_deadend_block = models.BooleanField(default=False)
+	#dev note: block_image can also be made a filechoice from a static directory, if you would prefer.
+	#use property: block_image=models.FilePathField(path=static_images_path)
+	#combine with fn: def static_images_path(): return PurePath(settings.BASE_DIR, settings.STATIC_IMAGES)
 	class Meta:
 		unique_together = ['story_id', 'block_id']
 		verbose_name_plural = 'story blocks'
 		constraints = [
 			UniqueConstraint(fields=('story_id',), condition=Q(is_starting_block=True), name='one_starting_block_per_story')
+			,UniqueConstraint(fields=('story_id',), condition=Q(is_ending_block=True), name='one_ending_block_per_story')
 			]
 	
 	def __str__(self):

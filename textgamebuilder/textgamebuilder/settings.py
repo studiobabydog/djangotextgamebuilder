@@ -122,6 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [str(Path(BASE_DIR, 'static'))]
+STATIC_IMAGES = str(Path('static', 'images'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
