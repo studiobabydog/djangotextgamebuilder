@@ -13,10 +13,10 @@
     <a href="{{ story.get_edit_story_properties_url }}">Change this story's properties (name, URL, active)</a>
     <hr />
     {% if storyblocks is None %}
-        <p>There are no storyblocks in this story yet. Please <a href="{{ story.get_create_storyblock_url }}">create a storyblock</a> for this story.</p>
+        <p>There are no story blocks in this story yet. Please <a href="{{ story.get_create_storyblock_url }}">create a storyblock</a> for this story.</p>
     {% else %}
         {% if new_story is True %}
-            <h4>Note that you must have at least 3 storyblocks in this story to link them together.</h4>
+            <h4>Note that you must have at least 3 story blocks in this story to link them together.</h4>
             {% for storyblock in storyblocks %}
                 <p>{% if storyblock.is_starting_block is True or storyblock.is_ending_block is True %}
                         <span style="color:red">{{ storyblock.block_slug }}</span>
