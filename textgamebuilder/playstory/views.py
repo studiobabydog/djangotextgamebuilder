@@ -18,13 +18,17 @@ def start_story_view(request, storyslug, *args, **kwargs):
         }
     return render(request, 'start_story.html', context)
 
-def play_story_view(request, *args, **kwargs):
+def play_story_view(request, storyblockslug, *args, **kwargs):
     # Find the requested storyblock and present it.
-    print(request.GET)
-    storyblock = StoryBlock.objects.get(block_slug='default-block-slug')
-    story = Story.objects.get(story_id = storyblock.story_id)
+    storyblock = StoryBlock.objects.get(block_slug=storyblockslug)
+    story = Story.objects.get(story_id=storyblock.story_id.story_id)
+    if storyblock.is_starting_block:
+        show_prev = False
+    else:
+        show_prev = True
     context = {
         'story': story,
-        'storyblock': storyblock
+        'storyblock': storyblock,
+        'show_prev': show_prev
     }
     return render(request, 'play_story.html', context)

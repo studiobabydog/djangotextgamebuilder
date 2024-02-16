@@ -62,3 +62,12 @@ class StoryBlock(models.Model):
 	
 	def get_delete_storyblock_url(self):
 		return reverse('delete-storyblock', kwargs={'storyblockslug': self.block_slug})
+	
+	def get_prev_block_url(self):
+		return reverse('play-story', kwargs={'storyblockslug': self.prev_block_slug})
+	
+	def get_next_block1_url(self):
+		return reverse('play-story', kwargs={'storyblockslug': self.next_block1_slug})
+	
+	def get_next_block2_url(self):
+		return reverse('play-story', kwargs={'storyblockslug': self.next_block2_slug})

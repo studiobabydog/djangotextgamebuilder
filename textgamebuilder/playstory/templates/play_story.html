@@ -15,9 +15,11 @@
             <p>{{ storyblock.block_text }}</p>
             <hr />
             <br />
-            <a href="/play-story/{{ storyblock.next_block1_slug }}"><button>{{ storyblock.next_block1_txt }}</button></a>
-            <a href="/play-story/{{ storyblock.prev_block_slug }}"><button>{{ storyblock.prev_block_txt }}</button></a>
-            <a href="/play-story/{{ storyblock.next_block2_slug }}"><button>{{ storyblock.next_block2_txt }}</button></a>
+            <a href="{{ storyblock.get_next_block1_url }}"><button>{{ storyblock.next_block1_txt }}</button></a>
+            {% if show_prev %}
+                <a href="{{ storyblock.get_prev_block_url }}"><button>{{ storyblock.prev_block_txt }}</button></a>
+            {% endif %}
+            <a href="{{ storyblock.get_next_block2_url }}"><button>{{ storyblock.next_block2_txt }}</button></a>
     {% endif %}
 
 {% else %}
