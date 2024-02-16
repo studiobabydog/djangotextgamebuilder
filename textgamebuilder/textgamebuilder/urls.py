@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls)
     ,path('', home_view, name='home')
 
-    ,path('start-story/<slug:storyslug>', start_story_view, name='start-story')
     ,path('play-story/<slug:storyblockslug>', play_story_view, name='play-story')
     
     # Function-Based Views - Edit Stories and Storyblocks

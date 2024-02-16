@@ -10,13 +10,19 @@
     {% if storyblock is None %}
         <p>This story is not ready to play (missing story blocks). Please <a href="{{ story.get_edit_story_url }}">edit the story.</a></p>
     {% else %}
-            <img src="{{ storyblock.block_image }}" alt="{{ storyblock.block_image_alt }}">
+            {% comment %} 
+                Uncomment this section if you would like to use images from a URL.
+                A placeholder image is provided in the static directory to improve load times.
+                <img src="{{ storyblock.block_image }}" alt="{{ storyblock.block_image_alt }}"> 
+            {% endcomment %}
+            {% load static %}
+            <img src="{% static 'images/placeholder.png' %}" alt="{{ storyblock.block_image_alt }}">
             <br />
             <p>{{ storyblock.block_text }}</p>
             <hr />
             <br />
             <a href="{{ storyblock.get_next_block1_url }}"><button>{{ storyblock.next_block1_txt }}</button></a>
-            {% if show_prev %}
+            {% if not storyblock.is_starting_block %}
                 <a href="{{ storyblock.get_prev_block_url }}"><button>{{ storyblock.prev_block_txt }}</button></a>
             {% endif %}
             <a href="{{ storyblock.get_next_block2_url }}"><button>{{ storyblock.next_block2_txt }}</button></a>

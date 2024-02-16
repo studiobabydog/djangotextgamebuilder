@@ -15,7 +15,8 @@ class Story(models.Model):
 		return str(f'{self.story_name}')
 	
 	def get_start_url(self):
-		return reverse('start-story', kwargs={'storyslug': self.story_slug})
+		start_block = StoryBlock.objects.get(story_id=self.story_id, is_starting_block=True).block_slug
+		return reverse('play-story', kwargs={'storyblockslug': start_block})
 	
 	def get_edit_story_properties_url(self):
 		return reverse('edit-story-properties', kwargs={'storyid': self.story_id})
