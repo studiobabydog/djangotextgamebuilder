@@ -14,6 +14,7 @@ Basic knowledge that will help you get started:
 * Django
 * Bash/command prompt/terminal or similar
 * Starting and running a local web server
+* [What is a "slug" in web code?](https://www.codecademy.com/article/christine_belzie/create-a-url-using-slugs)
 
 ## Notes on the module:
 1. This module is built on and requires Django, which is a lightweight full-stack web development framework using Python to communicate from a front-end webpage to a back-end database. If you do not know how to use Django yet, I recommend Traversy Media, Corey Schafer, and Programming with Mosh on YouTube to learn the basics!
@@ -31,4 +32,7 @@ Basic knowledge that will help you get started:
 4. Install Requirements: Open a terminal (bash, cmd, etc) and navigate to the repository folder. Run `python -m pip install -r requirements.txt` to install the required programs. 
 5. Launch the Server: In your terminal, start your Django server with the textgamebuilder/manage.py file. Your input should look something like this: `python manage.py runserver`. If you are using a virtual environment, it may also look like: `<path to virtual environment>/bin/python <path to textgamebuilder/manage.py> runserver`. If you are using VSCode, you can just use the "Run and Debug" option and use .vscode/launch.json, with the Python: Django interpreter, to launch the server instead. If your server starts up correctly, you should see something like this in your terminal: `Starting development server at http://127.0.0.1:8000/`.
 6. Open Running Server: In a browser of your choice (we recommend Firefox), open your server. The default Django location is http://127.0.0.1:8000/ but you can change this with some settings if you need to.
-7. Start Building Stories: If you have done all of the above correctly, when you open your server, you should see a message that says "Hello! Let's build some great text adventures!" and a simple bullet list navigation menu. Happy adventuring!
+7. Start Building Stories: If you have done all of the above correctly, when you open your server, you should see a message that says "Hello! Let's build some great text adventures!" and a simple bullet list navigation menu.
+8. Add Sample Stories (Optional): Open your database using a Relational Database Management software (for the standard sqlite db, DBrowser for SQLite is our recommendation). Run the .sql file in textgamebuilder/sample_stories.sql to insert a new Story and a set of Story Blocks into your database. Refresh your web browser and you should now see these in the "All Stories" and "All Story Blocks" pages.
+
+##Happy adventuring!
