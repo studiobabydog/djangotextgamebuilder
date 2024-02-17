@@ -7,6 +7,7 @@ Please be nice! This is my first time building a standalone Django module, and t
 Programs:
 * Python
 * IDE (Visual Studio Code or similar)
+* Web Browser
 
 Basic knowledge that will help you get started:
 * Python
