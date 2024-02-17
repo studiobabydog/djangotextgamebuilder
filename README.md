@@ -35,4 +35,7 @@ Basic knowledge that will help you get started:
 7. Start Building Stories: If you have done all of the above correctly, when you open your server, you should see a message that says "Hello! Let's build some great text adventures!" and a simple bullet list navigation menu.
 8. Add Sample Stories (Optional): Open your database using a Relational Database Management software (for the standard sqlite db, DBrowser for SQLite is our recommendation). Run the .sql file in textgamebuilder/sample_stories.sql to insert a new Story and a set of Story Blocks into your database. Refresh your web browser and you should now see these in the "All Stories" and "All Story Blocks" pages.
 
-##Happy adventuring!
+## Happy adventuring!
+____
+
+Find us online at [studiobabydog.com](http://studiobabydog.com)!
