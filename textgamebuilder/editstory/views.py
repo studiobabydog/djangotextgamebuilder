@@ -64,7 +64,6 @@ def edit_story_properties_view(request, storyid, *args, **kwargs):
                 story.story_isactive = True
             else:
                 story.story_isactive = False
-            print(story.story_isactive)
             story.full_clean()
             story.save()
         except Exception as e:
