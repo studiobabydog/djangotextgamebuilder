@@ -46,7 +46,6 @@ class StoryBlock(models.Model):
 	next_block1_txt = models.CharField(null=True, blank=True, max_length=32, default='go left', verbose_name='choice 1 button text')
 	next_block2_slug = models.SlugField(null=True, blank=True, default='block-slug', verbose_name='choice 2 storyblock slug')
 	next_block2_txt = models.CharField(null=True, blank=True, max_length=32, default='go right', verbose_name='choice 2 button text')
-	is_checkpoint = models.BooleanField(default=False)
 	is_starting_block = models.BooleanField(default=False)
 	is_ending_block = models.BooleanField(default=False)
 	is_deadend_block = models.BooleanField(default=False)
