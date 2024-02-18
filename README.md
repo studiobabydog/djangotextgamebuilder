@@ -27,15 +27,15 @@ Basic knowledge that will help you get started:
 
 ## How to Use:
 1. Download the Files: Clone this repository to the machine where you want to build your stories.
-2. Get Started: Open the repository folder in your Integrated Development Envrionment (IDE) of choice (we use Visual Studio Code, it's free, and there is a .vscode file included here with a launch.json file that will help you get going!)
-3. Set up a Virtual Environment: We recommend setting up a virtual environment using the "venv" module (`python -m pip install venv`) to keep the Python programs you need for this module separate from your other Python programs. If you choose not to use a virtual environment, you can check requirements.txt file to know what you'll need to install.
-4. Install Requirements: Open a terminal (bash, cmd, etc) and navigate to the repository folder. Run `python -m pip install -r requirements.txt` to install the required programs. 
+2. Get Started: Open the repository folder in your Integrated Development Envrionment (IDE) of choice (we recommend Visual Studio Code -- it's free, and there is a .vscode folder included here with a launch.json file that will help you get going!)
+3. Set up a Virtual Environment: We recommend setting up a virtual environment using the "venv" module (`python -m pip install venv`) to keep the Python programs you need for this repository separate from your other Python programs. If you choose not to use a virtual environment, you can check requirements.txt file to know what you'll need, and install them individually using the appropriate pip commands.
+4. Install Requirements: Open a terminal (bash, cmd, etc) and navigate to the repository folder. Run `python -m pip install -r requirements.txt` to install the required programs, or run the appropriate pip install commands.
 5. Launch the Server: In your terminal, start your Django server with the textgamebuilder/manage.py file. Your input should look something like this: `python manage.py runserver`. If you are using a virtual environment, it may also look like: `<path to virtual environment>/bin/python <path to textgamebuilder/manage.py> runserver`. If you are using VSCode, you can just use the "Run and Debug" option and use .vscode/launch.json, with the Python: Django interpreter, to launch the server instead. If your server starts up correctly, you should see something like this in your terminal: `Starting development server at http://127.0.0.1:8000/`.
 6. Open Running Server: In a browser of your choice (we recommend Firefox), open your server. The default Django location is http://127.0.0.1:8000/ but you can change this with some settings if you need to.
-7. Start Building Stories: If you have done all of the above correctly, when you open your server, you should see a message that says "Hello! Let's build some great text adventures!" and a simple bullet list navigation menu.
-8. Add Sample Stories (Optional): Open your database using a Relational Database Management software (for the standard sqlite db, DBrowser for SQLite is our recommendation). Run the .sql file in textgamebuilder/sample_stories.sql to insert a new Story and a set of Story Blocks into your database. Refresh your web browser and you should now see these in the "All Stories" and "All Story Blocks" pages.
+7. Start Building Stories: If you have done all of the above correctly, when you open your web browser and navigate to your running server page, you should see a message that says "Hello! Let's build some great text adventures!" and a simple bullet list navigation menu.
+8. Add Sample Stories (Optional): Open your database using a Relational Database Management software (for the standard sqlite db, we recommend DBrowser for SQLite). Run the .sql file in textgamebuilder/sample_stories.sql to insert a new Story and a set of Story Blocks into your database. Refresh your web browser and you should now see these in the "All Stories" and "All Story Blocks" pages.
 
-## Happy adventuring!
+### Happy adventuring!
 ____
 
 Find us online at [studiobabydog.com](http://studiobabydog.com)!
