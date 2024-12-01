@@ -1,3 +1,5 @@
+<img src="text-builder-new.png" alt="a small red wizard dog looks out at a beautiful landscape of mountains, trees, and a river. image was commissioned and was drawn by Shan Horan."/>
+
 # Django Text Game Builder by Studio Babydog
 Build your own browser-based text games using Django!
 
